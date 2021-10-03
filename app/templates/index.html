@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glass Kiosk</title>
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/handsfree@8.4.0/build/lib/assets/handsfree.css" />
+  <script src="https://unpkg.com/handsfree@8.4.0/build/lib/handsfree.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/fade.css' %}">  
+<style>
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+.card{
+    display: flex;
+    background: linear-gradient(to left top, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+    border-radius: 5rem;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    
+    box-shadow: 6px 6px 20px rgba(122,122,122, 0.212);
+    justify-content: space-between;
+}
+.btn{
+  width: 30%;
+  background: linear-gradient(to left top, rgba(255, 255, 255, 0.884), rgba(255, 255, 255, 0.753));
+  border-radius: 2rem;
+  box-shadow: 6px 6px 20px rgba(122,122,122, 0.212);
+}
+.next{
+            position: relative;
+            align-self: center;
+            right: 30px;
+        }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<main>
+<video autoplay muted loop id="myVideo">
+  <source src="/video-2.mp4" type="video/mp4">
+</video>
+<section class = 'glass'>
+<div class="help">  
+  <div class="card">
+    <img src="{% static 'img/privacy.png' %}" >
+    
+    <h2>Use hand to move around the pointer</h2>
+      
+  </div>
+
+  <div class="card">
+  <img src="{% static 'img/ok.png' %}">
+  <div class="card-info">
+    <h2>Pinch twice with your index finger and thumb to select </h2>
+  </div>
+  </div>
+
+  
+</div>
+<div class = "next">
+  <a href="{% url 'password' %} ">
+  <img style="width: 140px;height: 140px;" src="{% static 'img/next.png' %}" style="width:300px;height:200px;"></a>
+  </div>
+</section>
+</main>
+<div class = "circle1"></div>
+<div class = "circle2"></div>
+
+<script>
+  handsfree = new Handsfree({
+ hands: true,
+ showDebug: false
+})
+handsfree.start()
+
+// Enable all plugins tagged with "browser" (palmPointers, pinchScroll, pinchers)
+// @see https://handsfree.js.org/ref/plugin/
+handsfree.enablePlugins('browser')
+
+// The above is the same as turning on the following plugins individually:
+// handsfree.plugin.palmPointers.enable()
+// handsfree.plugin.pinchers.enable()
+// handsfree.plugin.pinchScroll.enable()
+
+// You can customize anything, just peek into their documentation. Example:
+// @see https://handsfree.js.org/ref/plugin/palmPointers.html
+
+// Let's create a "plugin" that runs on every webcam frame
+handsfree.use('logPalmPointers', ({hands}) => {
+ // Bail if no pointers
+ if (!hands.pointer) return
+ 
+ // Log the pointer positions: {x, y, isVisible}
+ // [0] === left hand, [1] === right hand
+ console.log('Pointers:', hands.pointer[0], hands.pointer[1])
+ 
+ // Log the pinch state (touching a finger tip with your thumb)
+ // Possible values are null, 'start', 'held', 'released'
+ // @see https://handsfree.js.org/ref/plugin/pinchers.html#pinch-states-with-pinchstate
+ console.log('Pinch States', hands.pinchState)
+
+ // EXAMPLE: CLICKING BY PINCHING
+ // Let's do right hand [1] index finger [0]
+ if (hands.pinchState[1][0] === 'start' && hands.pointer[1].isVisible) {
+   // Get the element under the pointer
+   const $el = document.elementFromPoint(hands.pointer[1].x, hands.pointer[1].y)
+   if ($el) {
+     $el.dispatchEvent(
+       new MouseEvent('click', {
+         bubbles: true,
+         cancelable: true,
+         clientX: hands.pointer[1].x,
+         clientY: hands.pointer[1].y
+       })
+     )
+   }
+ }
+
+ console.log('')
+})</script>
+</body>
+</html>

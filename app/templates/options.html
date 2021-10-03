@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+    <link rel="stylesheet" href="{% static 'css/options.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
+        .buttons {
+            position: absolute;
+            width: 100%;
+        }
+
+        .all-btns {
+            display: flex;
+        }
+
+        .buttons-right {
+            padding-left: 5rem;
+            width: 50%;
+            display: inline;
+        }
+
+        .buttons-left {
+            width: 50%;
+            display: inline;
+            padding-left: 5rem;
+        }
+
+        .btn {
+            margin-top: 70px;
+            padding: 10px;
+            display: flex;
+            height: 100px;
+            width: 250px;
+            border-style: solid;
+            border-radius: 3rem;
+            color: black;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .next {
+            position: relative;
+            padding-left: 5rem;
+            padding-top: 12rem;
+            
+            
+
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="glass">
+            <center>
+                <h1 class="title"> Select Your Transaction</h1>
+                <form  method="POST">
+                {% csrf_token %}
+                <div class="all-btns">
+                    <div class="buttons-left">
+                        <input  id="options" name="options" type="hidden"></input>
+                        <button  onclick="withdrawalfun()" class="btn" id="withdrawal">
+                            <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
+                                    class="fas fa-caret-right"></i>Cash Withdrawal</h1>
+                        </button>
+                        <input  name="ballanceInquiry" type="hidden"></input>
+                        <button  onclick="ballanceInquiryfun()" class="btn" id="ballanceInquiry">
+                            <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
+                                    class="fas fa-caret-right"></i>Ballance Inquiry</h1>
+                        </button>
+
+                    </div>
+                    <div class="buttons-right">
+                        <input  name="transfer" type="hidden"></input>
+                        <button onclick="transferfun()" class="btn" id="transfer">
+                            <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
+                                    class="fas fa-caret-right"></i>Transfer</h1>
+                        </button>
+                        <input  name="changepin" type="hidden"></input>
+                        <button onclick="changepinfun()" class="btn" id="changepin">
+                            <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
+                                    class="fas fa-caret-right"></i>Change Pin</h1>
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </center>
+        </section>
+        
+    </main>
+    <script>
+        function withdrawalfun(){
+            document.getElementById("options").value = "withdrawal";
+            document.getElementById("options").form.submit();
+        }
+        function ballanceInquiryfun(){
+            document.getElementById("options").value = "ballanceInquiry";
+            document.getElementById("options").form.submit();
+        }
+        function transferfun(){
+            document.getElementById("options").value = "transfer";
+            document.getElementById("options").form.submit();
+        }
+        function changepinfun(){
+            document.getElementById("options").value = "changepin";
+            document.getElementById("options").form.submit();
+        }
+    </script>
+
+        }
+    </script>
+</body>
+
+</html>

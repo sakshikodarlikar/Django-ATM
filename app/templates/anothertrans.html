@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Another Transaction</title>
+    <link rel="stylesheet" href="{% static 'css/anothertrans.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <main>
+        <section class="glass">
+            <center>
+                <h1 class="title">Would You Like To Make Another Transaction?</h1>
+                <div class="all-btns">
+                <div class="buttons-left">
+                    <a href="{% url 'options' %}">
+                    <button class="btn" id="yes"><h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white" class="fas fa-caret-right"></i>YES</h1></button>
+                    </a>
+                   </div>
+                   <div class="buttons-right">
+                    <a href="{% url 'anothertrans' %}">  
+                    <button class="btn" id="no"><h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white" class="fas fa-caret-right"></i>NO</h1></button>
+                    </a>
+                </div>
+                </div>
+            </center>
+        </section>
+    </main>
+    
+</body>
+</html>

@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+main {
+  min-height: 100vh;
+  background: linear-gradient(to right bottom, rgb(0, 0, 0), rgb(14, 0, 63));
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass {
+  background: white;
+  height: 80vh;
+  width: 70%;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.1)
+  );
+  border-radius: 2rem;
+  z-index: 3;
+  backdrop-filter: blur(0.3rem);
+  display: flex;
+}
+
+.circle1,
+.circle2 {
+  background: red;
+  background: linear-gradient(
+    to right bottom,
+    rgba(42, 6, 172, 0.356),
+    rgba(255, 255, 255, 0)
+  );
+  height: 15rem;
+  width: 15rem;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle1 {
+  top: 5%;
+  right: 15%;
+}
+
+.circle2 {
+  bottom: 5%;
+  left: 10%;
+}
+
+.btn {
+  width: 30%;
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 0.884),
+    rgba(255, 255, 255, 0.753)
+  );
+  border-radius: 2rem;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
+}
+
+.help {
+  margin: 2rem;
+  width: 100%;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 5%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.card {
+  display: flex;
+  background: linear-gradient(
+    to left top,
+    rgba(122, 14, 14, 0.5),
+    rgba(255, 255, 255, 0.8)
+  );
+  border-radius: 5rem;
+  margin: 2rem 0rem;
+  padding: 0.5rem;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
+  justify-content: space-between;
+}
+.card img {
+  float: left;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  top: 25%;
+  left: 30px;
+}
+
+.card h2 {
+  position: relative;
+  top: -30px;
+  left: 130px;
+  width: 500px;
+  wordwrap: normal;
+}
+
+.select1 {
+  display: flex;
+  padding: rem;
+  margin-top: 120px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.plane {
+  padding: 1rem;
+  border-radius: 2rem;
+  justify-content: space-evenly;
+}
+
+.select2 {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-evenly;
+}

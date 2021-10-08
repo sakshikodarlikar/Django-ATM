@@ -1,0 +1,36 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language</title>
+    <link rel="stylesheet" href="{% static 'css/lang.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <section class="glass">
+            <div class='text-box'>
+                
+            <h1 class='title'>बैलेंस पूछताछ</h1>
+            <center>
+            <div class="form-group">
+            <h2> 
+                खाता नाम : {{account.name}} </h2>
+            <h2> 
+                खाता संख्या : {{account.account_id}} </h2>
+            <h2> खाते में शेष :{{account.balance}} </h2>
+            </div>
+            </center>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

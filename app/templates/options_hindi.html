@@ -64,7 +64,7 @@
     <main>
         <section class="glass">
             <center>
-                <h1 class="title"> Select Your Transaction</h1>
+                <h1 class="title"> अपना लेनदेन चुनें</h1>
                 <form  method="POST">
                 {% csrf_token %}
                 <div class="all-btns">
@@ -72,12 +72,13 @@
                         <input  id="options" name="options" type="hidden"></input>
                         <button  onclick="withdrawalfun()" class="btn" id="withdrawal">
                             <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
-                                    class="fas fa-caret-right"></i>Cash Withdrawal</h1>
+                                    class="fas fa-caret-right"></i>
+                                    धन निकासी</h1>
                         </button>
                         <input  name="ballanceInquiry" type="hidden"></input>
                         <button  onclick="ballanceInquiryfun()" class="btn" id="ballanceInquiry">
                             <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
-                                    class="fas fa-caret-right"></i>Balance Inquiry</h1>
+                                    class="fas fa-caret-right"></i>बैलेंस पूछताछ</h1>
                         </button>
 
                     </div>
@@ -85,12 +86,13 @@
                         <input  name="transfer" type="hidden"></input>
                         <button onclick="transferfun()" class="btn" id="transfer">
                             <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
-                                    class="fas fa-caret-right"></i>Transfer</h1>
+                                    class="fas fa-caret-right"></i>
+                                    धन हस्तांतरण</h1>
                         </button>
                         <input  name="changepin" type="hidden"></input>
                         <button onclick="changepinfun()" class="btn" id="changepin">
                             <h1 class="btn-text"><i style="font-size:21px;margin-right:10px; color:white"
-                                    class="fas fa-caret-right"></i>Change Pin</h1>
+                                    class="fas fa-caret-right"></i>पिन बदलें</h1>
                         </button>
                     </div>
                 </div>

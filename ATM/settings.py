@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -125,9 +126,10 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
 
 STATICFILES_DIRS = [
-os.path.join(BASE_DIR,'app/static')
+    os.path.join(BASE_DIR, 'app/static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assests')
+
+SECRET_KEY = '!8(tvv@#z%v+pr9&$13gy_2*aj)83s-g7*a373u64qq(^33a__'

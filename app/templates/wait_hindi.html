@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wait</title>
+    <link rel="stylesheet" href="{% static 'css/successful.css' %}">
+</head>
+<body>
+    <!-- <div class="boxed">
+        
+    </div> -->
+    <main>
+        <section class="glass">
+            <div class="boxed">
+                <center>  <h1 class="wait">प्रतीक्षा करें जबकि लेनदेन संसाधित किया जा रहा है</h1>
+                </center>
+            </div>
+            <div class="next">
+                <a href="{% url 'successful' %}">
+                    <img onclick="myFunction()" style="width: 140px;height: 140px;" src="{% static 'img/next.png' %}"
+                        style="width:300px;height:200px;"></a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

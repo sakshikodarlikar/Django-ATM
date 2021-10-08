@@ -1,8 +1,9 @@
 from django.urls import path,include
 from . import views
+from .views import ScannerView, livefe
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('index', views.index, name='index'),
     path('lang',views.lang,name='lang'),
     path('anothertrans',views.anothertrans,name='anothertrans'),
     path('options',views.options,name='options'),
@@ -13,4 +14,6 @@ urlpatterns = [
     path('transfer',views.transfer,name='transfer'),
     path('balenquiry',views.balenquiry,name='balenquiry'),
     path('changepin',views.changepin,name='changepin'),
+    path('',ScannerView,name='scan'),
+    path('sc', livefe, name='sc'),
 ]

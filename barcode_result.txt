@@ -1,0 +1,1 @@
+Recognized Barcode:{"accid" : "1" , "bank" : "YES"}

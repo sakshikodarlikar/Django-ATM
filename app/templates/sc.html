@@ -1,3 +1,4 @@
+{% load static %}
 <head >
     <script>
         function onclk(){
@@ -5,50 +6,89 @@
         }
     </script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="{% static 'css/options.css' %}">
+    <style>
+        .buttons {
+            position: absolute;
+            width: 100%;
+        }
+
+        .all-btns {
+            display: flex;
+        }
+
+        .buttons-right {
+            padding-left: 5rem;
+            width: 50%;
+            display: inline;
+        }
+
+        .buttons-left {
+            width: 50%;
+            display: inline;
+            padding-left: 5rem;
+        }
+
+        .btn {
+            margin-top: 70px;
+            padding: 10px;
+            display: flex;
+            height: 100px;
+            width: 250px;
+            border-style: solid;
+            border-radius: 3rem;
+            color: black;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .next {
+            position: relative;
+            padding-left: 5rem;
+            padding-top: 12rem;
+            
+            
+
+        }
+    </style>
 </head>
 <body>
-    <div style=" width: 100%; height: 100vh; display: flex; flex-direction: column; overflow-y: hidden;">
-        <div style="height: 7vh;width: 100%; background-color: rgb(26, 81, 143);display:flex;flex-direction: column; ">
-            <div style="height: 7vh;
-            width: 100%;
-            margin-top: 0vh;
-            display: flex;
-            flex-direction: row;
-            text-align: center;
-            align-items: center;
-            padding-left: 5%;"
-            >
-            <i id="QR" class="fas fa-qrcode" style="font-size: 4vh;"></i>
-            <h2 style="color: ivory; padding-left: 2%;">QR CODE SCANNER</h2>
-            </div>
-        </div>
-        <div style="height: 53vh; width: 100%; display: flex;align-items: center; align-content: center;">
-            <img style="display: flex; align-self: center; width: 40%; margin-left: 30%; height: 47vh;" src="{% url 'sc' %}">
-        </div>
-        <div style="height: 20vh; width: 100%; display: flex;align-items: center; align-content: center;">
-            {% if barcode %}
+    <main>
+        <section class="glass">
+            <div style=" width: 100%; height: 100vh; display: flex; flex-direction: column; overflow-y: hidden;">
                 
-                <div style="display: flex;justify-content: center;align-items: center; height: 18vh; width: 50%; margin-left: 25%;">
-                <p style = "text-align: center;font-size: 2.5vh;">
-                    {% if isUrl %}
-                    Scanned output:<a href="{{barcode}}">{{ barcode }}</a>
-                    {% else %}
-                    Scanned output: {{barcode}}
-                    {% endif %}
-                </p>
-                <p style = "text-align: center;font-size: 2.5vh;">
-                <a href="{% url 'index' %}">
-                    <button style="background-color: rgb(26, 81, 143); color: ivory; border: none; border-radius: 5px; height: 5vh; width: 10vh;">
-                        <i class="fas fa-redo" style="font-size: 2vh;">Proceed</i>
-                    </button>
-                </p>
+                <div style="height: 53vh; width: 100%; display: flex;align-items: center; align-content: center;">
+                    <img style="display: flex; align-self: center; width: 40%; margin-left: 30%; height: 47vh;" src="{% url 'sc' %}">
                 </div>
-            {% endif %}
-        </div>
-        <div style="height: 20vh; width: 100%;display: flex; align-items: center; justify-content: center;">
-            <button onclick="onclk()" style="padding: 2px; height: auto; width: auto; font-size: 4vh; background-color: rgb(26, 81, 143); color: white; align-self: center;">
-                See result
-            </button>
-        </div>
-    </div>
+                <div style="height: 20vh; width: 100%; display: flex;align-items: center; align-content: center;">
+                    
+                        
+                        <div style="display: flex;justify-content: center;align-items: center; height: 18vh; width: 50%; margin-left: 25%;">
+                        <p style = "text-align: center;font-size: 2.5vh;">
+                            {% if isUrl %}
+                            Scanned output:<a href="{{barcode}}">{{ barcode }}</a>
+                            {% else %}
+                            Scanned output: {{barcode}}
+                            
+                            {% endif %}
+                        </p>
+                        
+                        <p style = "text-align: center;font-size: 2.5vh;">
+                        <a href="{% url 'index' %}">
+                            <button class="btn" style="background-color: rgb(26, 81, 143); color: ivory; border: none; border-radius: 5px; height: 5vh; width: 10vh;">
+                                <i class="" style="font-size: 2vh;">Proceed</i>
+                            </button>
+                        </p>
+                        </div>
+                    
+                </div>
+                <div style="height: 20vh; width: 100%;display: flex; align-items: center; justify-content: center;">
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+   
 </body>

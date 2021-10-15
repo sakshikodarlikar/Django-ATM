@@ -2,8 +2,8 @@ from .models import *
 from django.contrib.auth import authenticate
 from .form import ImageForm
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render,redirect
-from django.http import HttpResponse,StreamingHttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, StreamingHttpResponse
 import cv2
 from pyzbar import pyzbar
 from pyzbar.pyzbar import decode
@@ -11,16 +11,21 @@ from django.views.decorators import gzip
 import threading
 import validators
 # Create your views here.
+
+
 def index(request):
     return render(request, 'index.html')
+
 
 def lang(request):
     username = request.session['username']
     user = User.objects.get(username=username)
-    return render(request, 'lang.html',{'user':user})
+    return render(request, 'lang.html', {'user': user})
+
 
 def anothertrans(request):
     return render(request, 'anothertrans.html')
+
 
 def options(request):
     if request.method == 'POST':
@@ -39,10 +44,11 @@ def options(request):
 
     return render(request, 'options.html')
 
+
 def password(request):
     if request.method == "POST":
         pin = request.POST.get('pin')
-        qrcode = request.session['qrcode']
+        # qrcode = request.session['qrcode']
         account = Account.objects.get(pin=pin)
         if account:
             request.user = account.user
@@ -50,18 +56,19 @@ def password(request):
             return redirect('lang')
         else:
             return render(request, 'password.html', {
-                    "message": "Invalid credentials."
-                })
+                "message": "Invalid credentials."
+            })
     else:
         return render(request, 'password.html')
-        
-    
+
 
 def successful(request):
     return render(request, 'successful.html')
 
+
 def wait(request):
     return render(request, 'wait.html')
+
 
 def withdraw(request):
     username = request.session['username']
@@ -76,9 +83,10 @@ def withdraw(request):
             return redirect('successful')
         else:
             return render(request, 'withdraw.html', {
-                    "message": "Invalid credentials."
-                })
+                "message": "Invalid credentials."
+            })
     return render(request, 'withdraw.html')
+
 
 def transfer(request):
     username = request.session['username']
@@ -93,17 +101,19 @@ def transfer(request):
             sender_account.save()
             receiver_account.balance += int(amount)
             receiver_account.save()
-            transfer = Transfer(sender=sender_account, receiver=receiver_account, amount=amount)
+            transfer = Transfer(sender=sender_account,
+                                receiver=receiver_account, amount=amount)
             transfer.save()
             return redirect('successful')
         else:
             print("ok")
             return render(request, 'transfer.html', {
-                    "message": "Invalid credentials."
-                })
+                "message": "Invalid credentials."
+            })
     else:
         print("lol else")
         return render(request, 'transfer.html')
+
 
 def balenquiry(request):
     username = request.session['username']
@@ -114,6 +124,7 @@ def balenquiry(request):
             "account": account
         })
     return render(request, 'balenquiry.html')
+
 
 def changepin(request):
     username = request.session['username']
@@ -133,6 +144,7 @@ def changepin(request):
                 })
     return render(request, 'changepin.html')
 
+
 def redirect_view(request):
     # print("hellos")
     return HttpResponseRedirect('https://simpleblog.com/posts/archive/')
@@ -141,9 +153,10 @@ def redirect_view(request):
     return redirect('http://google.com')
 
 
-
 barcode = ""
 isURL = True
+
+
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -162,38 +175,42 @@ class VideoCamera(object):
     def update(self):
         while True:
             (self.grabbed, self.frame) = self.video.read()
+
     def stop(self):
         self.video.release()
 
     def __del__(self):
         self.video.release()
 
+
 def read_barcodes(frame):
-    global barcode,isURL
+    global barcode, isURL
     barcodes = pyzbar.decode(frame)
     for barcode in barcodes:
-        x, y , w, h = barcode.rect        #1
+        x, y, w, h = barcode.rect  # 1
         barcode_info = barcode.data.decode('utf-8')
         barcode = barcode_info
         isURL = validators.url(barcode)
-        #print(barcode)
+        # print(barcode)
         camOn = False
-        cv2.rectangle(frame, (x, y),(x+w, y+h), (0, 255, 0), 2)
-        
-        #2
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+        # 2
         font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(frame, barcode_info, (x + 6, y - 6), font, 2.0, (255, 255, 255), 1)        #3
-        with open("barcode_result.txt", mode ='w') as file:
-            file.write("Recognized Barcode:" + barcode_info)    
+        cv2.putText(frame, barcode_info, (x + 6, y - 6),
+                    font, 2.0, (255, 255, 255), 1)  # 3
+        with open("barcode_result.txt", mode='w') as file:
+            file.write("Recognized Barcode:" + barcode_info)
             print(barcode_info)
-            request.session['qrcode'] = barcode_info
+            # request.session['qrcode'] = barcode_info
     return frame
 
-def gen(camera,request):
-    global barcode,isURL
+
+def gen(camera, request):
+    global barcode, isURL
     while True:
         frame = camera.get_frame()
-        if len(barcode)>0:
+        if len(barcode) > 0:
             camera.stop()
             break
         yield(b'--frame\r\n'
@@ -203,38 +220,41 @@ def gen(camera,request):
 
 @gzip.gzip_page
 def livefe(request):
-    global barcode,isURL
-    if len(barcode)>0:
+    global barcode, isURL
+    if len(barcode) > 0:
         barcode = ""
         # print("in live fun if")
     try:
         cam = VideoCamera()
         # print("test")
         print(barcode)
-        return StreamingHttpResponse(gen(cam,request), content_type="multipart/x-mixed-replace;boundary=frame")
-    except: 
-        print("test") # This is bad! replace it with proper handling
+        return StreamingHttpResponse(gen(cam, request), content_type="multipart/x-mixed-replace;boundary=frame")
+    except:
+        print("test")  # This is bad! replace it with proper handling
         pass
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
 # Create your views here.
 
+
 def ScannerView(request):
-    global barcode,isURL
-    return render(request, 'sc.html' , {"barcode" :  barcode, "isUrl" : isURL})
+    global barcode, isURL
+    return render(request, 'sc.html', {"barcode":  barcode, "isUrl": isURL})
+
 
 def getBarcode(request):
-    global barcode,isURL
+    global barcode, isURL
     print("in fun")
     print(barcode)
-    return render(request, 'barcode.html' , {"barcode" :  barcode, "isUrl" : isURL})
+    return render(request, 'barcode.html', {"barcode":  barcode, "isUrl": isURL})
+
 
 def Get_image_view(request):
-  
+
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
-  
+
         if form.is_valid():
             form.save()
             q2 = Image.objects.latest('id')
@@ -245,8 +265,8 @@ def Get_image_view(request):
             return redirect('success')
     else:
         form = ImageForm()
-    return render(request, 'barcode.html', {'form' : form})
-  
-  
+    return render(request, 'barcode.html', {'form': form})
+
+
 def success(request):
     return HttpResponse('successfully uploaded')

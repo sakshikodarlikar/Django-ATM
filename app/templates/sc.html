@@ -30,18 +30,18 @@
         }
 
         .btn {
-            margin-top: 70px;
-            padding: 10px;
-            display: flex;
-            height: 100px;
-            width: 250px;
-            border-style: solid;
-            border-radius: 3rem;
-            color: black;
-            outline: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-left: 27rem;
+            margin-top: 10%;
+            height: 5rem;
+            border: none;
+            width: 30%;
+            font-family: poppins;
+            font-size: 24px;
+            background: linear-gradient(to left top,
+                    rgba(255, 255, 255, 0.884),
+                    rgba(255, 255, 255, 0.753));
+            border-radius: 2rem;
+            box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
         }
 
         .next {
@@ -66,19 +66,18 @@
                     
                         
                         <div style="display: flex;justify-content: center;align-items: center; height: 18vh; width: 50%; margin-left: 25%;">
-                        <p style = "text-align: center;font-size: 2.5vh;">
+                        <!-- <p style = "text-align: center;font-size: 2.5vh;">
                             {% if isUrl %}
                             Scanned output:<a href="{{barcode}}">{{ barcode }}</a>
                             {% else %}
                             Scanned output: {{barcode}}
                             
                             {% endif %}
-                        </p>
+                        </p> -->
                         
                         <p style = "text-align: center;font-size: 2.5vh;">
-                        <a href="{% url 'index' %}">
-                            <button class="btn" style="background-color: rgb(26, 81, 143); color: ivory; border: none; border-radius: 5px; height: 5vh; width: 10vh;">
-                                <i class="" style="font-size: 2vh;">Proceed</i>
+                        <a href="{% url 'otp' %}">
+                            <button class="btn" >Proceed</i>
                             </button>
                         </p>
                         </div>

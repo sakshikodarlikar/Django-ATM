@@ -10,6 +10,11 @@ from pyzbar.pyzbar import decode
 from django.views.decorators import gzip
 import threading
 import validators
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.mail import send_mail
+import math
+import random
 # Create your views here.
 
 
@@ -270,3 +275,25 @@ def Get_image_view(request):
 
 def success(request):
     return HttpResponse('successfully uploaded')
+
+
+def otp(request):
+    return render(request, "otp.html")
+
+
+def generateOTP():
+    digits = "0123456789"
+    OTP = ""
+    for i in range(4):
+        OTP += digits[math.floor(random.random() * 10)]
+    return OTP
+
+
+def send_otp(request):
+    email = request.GET.get("email")
+    print(email)
+    o = generateOTP()
+    htmlgen = '<p>Your OTP is <strong>o</strong></p>'
+    # send_mail('OTP request', o, '<your gmail id>', [email], fail_silently=False, html_message=htmlgen)
+    print(o)
+    return HttpResponse(o)
